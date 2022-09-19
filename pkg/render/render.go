@@ -7,29 +7,34 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/ahmed/renderingHtmlTemplates/config"
 )
 
 var functions = template.FuncMap{
 
 }
 
-func RenderingTemplate(w http.ResponseWriter, tmpl string){
+var app *config.AppConfig
 
-	tc, err := CreateTemplateCache()
-	if err != nil{
-		fmt.Println("error while parsing the template",err)
-	}
+func NewTemplates(a *config.AppConfig){
+	app = a
+}
+
+func RenderingTemplate(w http.ResponseWriter, tmpl string){
+	// get the template cache from the app
+	tc := app.TemplateCache
 	t, ok := tc[tmpl]
 
 	if !ok {
-		log.Fatal(err)
+		log.Fatal("erro")
 	}
 
 	buf := new(bytes.Buffer)
 
 	t.Execute(buf, nil)
 
-	_, err = buf.WriteTo(w)
+	_, err := buf.WriteTo(w)
 
 	if err != nil{
 		log.Fatal(err)
