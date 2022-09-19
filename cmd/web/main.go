@@ -26,7 +26,11 @@ func main(){
 
 	app.TemplateCache = tc
 
+	repo := handlers.NewRepo(&app)
+	handlers.NewHandler(repo)
+
 	render.NewTemplates(&app)
+
 	fmt.Println("starting server at port", portNumber)
 
 	http.HandleFunc("/", handlers.Home)
