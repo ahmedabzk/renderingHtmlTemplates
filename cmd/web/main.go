@@ -25,6 +25,7 @@ func main(){
 	}
 
 	app.TemplateCache = tc
+	app.UseCache = false
 
 	repo := handlers.NewRepo(&app)
 	handlers.NewHandler(repo)
@@ -33,8 +34,8 @@ func main(){
 
 	fmt.Println("starting server at port", portNumber)
 
-	http.HandleFunc("/", handlers.Home)
-	http.HandleFunc("/about", handlers.About)
+	http.HandleFunc("/", handlers.Repo.Home)
+	http.HandleFunc("/about", handlers.Repo.About)
 
 	http.ListenAndServe(portNumber, nil)
 

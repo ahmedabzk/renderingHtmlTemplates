@@ -23,12 +23,12 @@ func NewHandler(r *Repository){
 	Repo = r
 }
 
-func Home(w http.ResponseWriter, r *http.Request){
+func (m *Repository)Home(w http.ResponseWriter, r *http.Request){
 	render.RenderingTemplate(w, "home.page.html")
 
 }
 
-func About(w http.ResponseWriter, r *http.Request){
+func (m *Repository)About(w http.ResponseWriter, r *http.Request){
 	render.RenderingTemplate(w, "about.page.html")
 
 }
